@@ -1,4 +1,4 @@
-#Brewery Review System: 
+Brewery Review System: 
 
 1. This Flask web application allows users to log in or sign up to access brewery data. 
 2. Upon authentication, users can retrieve information about breweries based on city from the https://www.openbrewerydb.org database. 
