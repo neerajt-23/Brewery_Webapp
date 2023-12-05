@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Breweries</title>
+    <style>
+        body{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            background-color: aquamarine;
+        }
+        .list{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search Breweries by City</h2>
+    {% if current_user.is_authenticated %}
+        <p>Hello, {{ current_user.username }}! enter city name,</p>
+        
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a> |
+        <a href="{{ url_for('signup') }}">Sign Up</a>
+    {% endif %}
+    <form method="POST" action="{{ url_for('search') }}">
+        <label for="city">Enter City:</label>
+        <input type="text" name="city" required>
+        <br><br>
+        <button type="submit">Search</button>
+    </form>
+    {% if breweries %}
+        <h3>Breweries in {{ request.form['city'] }}</h3>
+        <ul class="list">
+            {% for brewery in breweries %}
+                <li><b><a href="{{ url_for('brewery_details', brewery_id=brewery['id']) }}">{{ brewery['name'] }}</a> - {{ brewery['city'] }}</b></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br><br><br>
+    <p>want to logout click below,</p>
+    <a href="{{ url_for('logout') }}"><button>Logout</button></a>
+</body>
+</html>

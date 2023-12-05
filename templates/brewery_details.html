@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ brewery['name'] }}</title>
+    <style>
+        body{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            background-color: rgb(75, 247, 167);
+        }
+        .container{
+            width: 300px;
+        border: 5px solid rgb(0, 0, 0);
+        padding: 50px;
+        margin: 20px;
+        margin-left: 480px;
+        
+            text-align: left;
+        }
+        .btn{
+            background-color: rgb(241, 241, 7);
+        }
+    </style>
+</head>
+<body>
+    <h2>{{ brewery['name'] }}</h2>
+<div class="container">
+    <p>
+        <strong>Address:</strong> {{ brewery['street'] }}, {{ brewery['city'] }},
+        {{ brewery['state'] }} {{ brewery['postal_code'] }}
+    </p>
+    <p><strong>Phone:</strong> {{ brewery['phone'] }}</p>
+    <p><strong>Rating:</strong> {{ get_average_rating(reviews) }}</p>
+
+    <h3>Reviews:</h3>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                {{ review['content'] }} - Rating: {{ review['rating'] }} by {{ review['author']['username'] }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+    <h3>Add Review:</h3>
+    <form method="post" action="{{ url_for('add_review', brewery_id=brewery['id']) }}">
+        <label for="rating">Rating (1-5):</label>
+        <input type="number" name="rating" min="1" max="5" required />
+        <br><br>
+        <label for="content">Review:</label>
+        <textarea name="content" required></textarea>
+        <br><br>
+        <button type="submit">Submit Review</button>
+    </form>
+    <br>
+    <a href="{{ url_for('logout') }}"><button class="btn">Logout</button></a>
+</body>
+</html>

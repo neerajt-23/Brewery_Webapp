@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Review</title>
+    <style>
+        body{
+            body{
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Add Review for {{ brewery['name'] }}</h2>
+    <form method="post" action="{{ url_for('add_review', brewery_id=brewery_id) }}">
+        <label for="rating">Rating (1-5):</label>
+        <input type="number" name="rating" min="1" max="5" required>
+        <label for="content">Review:</label>
+        <textarea name="content" required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+    <a href="{{ url_for('brewery_details', brewery_id=brewery_id) }}">Back to Brewery Details</a>
+</body>
+</html>
